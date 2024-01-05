@@ -1,14 +1,21 @@
-function Carro(modelo, ano, marca, combustivel){
-    this.modelo = modelo,
-    this.ano = ano,
-    this.marca = marca,
-    this.combustivel = combustivel
+const Conta ={
+    numeroConta: 12345,
+    agencia: 0001,
+    cpfTitulas:"123.123.123-12",
+    saldo: 0,
+
+    deposito: function(valor) {
+        this.saldo += valor;
+        return `Saldo atual: R$${this.saldo}`;
+    },
+
+    sacar: function(valor) {
+        if(this.saldo < valor){
+            return `valor: R$${valor} é maior que o saldo disponivel`;
+        }else{
+            this.saldo -=valor;
+            return `Saldo atual: R$${this.saldo}, valor sacado: R$${valor}`
+        } 
+    }
+
 }
-
-let carros = [];
-
-carros[0] = new Carro("fusca",1976,"volkswagem","gasolina");
-
-
-carros[1] = new Carro("uno", 2010,"fiat","flex");
-console.log(carros);
