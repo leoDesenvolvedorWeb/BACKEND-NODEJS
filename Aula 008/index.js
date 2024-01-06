@@ -7,3 +7,6 @@ console.log(novaConta.saldo);
 novaConta.depositar(250);
 
 console.log(novaConta.saldo);
+
+console.log(novaConta.sacar(100));
+

@@ -4,7 +4,7 @@ function Conta(numeroConta,agencia,cpfTitular,saldo) {
     this.cpfTitular= cpfTitular,
     this.saldo= saldo,
 
-    this.deposito = function(valor) {
+    this.depositar = function(valor) {
         this.saldo += valor;
         return `Saldo atual: R$${this.saldo}`;
     },
@@ -21,5 +21,5 @@ function Conta(numeroConta,agencia,cpfTitular,saldo) {
 }
 
 module.exports = {
-    conta
+    Conta
 }
