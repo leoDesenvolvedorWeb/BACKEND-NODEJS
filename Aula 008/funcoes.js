@@ -1,8 +1,8 @@
-function Conta(numeroConta,agencia, cpfTitular,saldo) {
-    this.numeroConta= 12345,
-    this.agencia= 1001,
-    this.cpfTitular="123.123.123-12",
-    this.saldo= 0,
+function Conta(numeroConta,agencia,cpfTitular,saldo) {
+    this.numeroConta= numeroConta,
+    this.agencia= agencia,
+    this.cpfTitular= cpfTitular,
+    this.saldo= saldo,
 
     this.deposito = function(valor) {
         this.saldo += valor;
