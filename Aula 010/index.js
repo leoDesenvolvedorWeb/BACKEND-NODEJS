@@ -1,4 +1,4 @@
-class Pessoal{
+class Pessoa{
     constructor (nome, idade, altura, genero){
         this.nome = nome,
         this.idade = idade,
@@ -10,3 +10,4 @@ class Pessoal{
         return this.nome + " " + this.idade;
     }
 }
+
