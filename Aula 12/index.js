@@ -3,6 +3,14 @@ const obj = JSON.parse(jsonEntrada);
 
 console.log(obj);
 
-//obj.turmas.map(function(valor, posicao){
-//  console.log(`posição: ${posicao}, valor:`)
-//})
+obj.turmas.map(function(valor, posicao){
+  console.log(`posição: ${posicao}, valor: ${valor}`);
+})
+
+obj.nome += " Ramos";
+obj.salario = 10000;
+
+console.log(obj);
+
+const jsonString = JSON.stringify(obj);
+console.log(jsonString);
