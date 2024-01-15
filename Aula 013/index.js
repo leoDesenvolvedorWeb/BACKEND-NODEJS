@@ -11,7 +11,7 @@ app.get("/", (req,res) =>{
 })
 
 app.get("/contato", (req,res) =>{
-    res.send("nosso contato:  helloworld@gmail.com");
+    res.send("nosso contato: helloworld@gmail.com");
 })
 
 
