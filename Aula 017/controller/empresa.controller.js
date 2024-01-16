@@ -19,7 +19,8 @@ const empresas = [
 ]
 
 const find = (req,res) => {
-    res.send("rota find");
+    const id = req.params.id;
+    res.send(empresas[id]);
 }
 
 const findAllEmpresas = (req,res) => {
@@ -27,7 +28,12 @@ const findAllEmpresas = (req,res) => {
 }
 
 const createEmpresa = (req,res) => {
-    res.send("empresa criada com sucesso");
+    const empresa = req.body;
+    if(req.body.nome == null){
+        return res.send({message:"corpo da mensagem estar vazio"});
+    }
+    empresas.push(empresa);
+    res.send(empresas);
 }
 
 module.exports = {
