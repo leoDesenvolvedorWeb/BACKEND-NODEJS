@@ -13,7 +13,7 @@ app.get("/", (req,res) =>{
 })
 
 app.get("/mongo", (req,res) =>{
-    mongoose.connect('mongodb://localhost:27017/teste-gatos');
+    mongoose.connect('mongodb://localhost:27017/aulas');
 
     const gatoShema = {
         "nome": String,
