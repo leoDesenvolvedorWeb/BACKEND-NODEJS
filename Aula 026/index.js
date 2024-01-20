@@ -13,7 +13,7 @@ app.get("/", (req,res) =>{
 })
 
 app.get("/mongo", (req,res) =>{
-    mongoose.connect('mongodb://localhost:27017/aulas');
+    mongoose.connect('mongodb://localhost:27017');
 
     const gatoShema = {
         "nome": String,
@@ -27,17 +27,17 @@ app.get("/mongo", (req,res) =>{
     const Cat = mongoose.model('Gato', gatoShema);
 
     const gato = {
-        nome: "Josias 2",
-        idade: 5,
+        nome: "Josias",
+        idade: 4,
         genero: "M",
-        porte: "medio",
-        peso: 6,
-        docil: false,
+        porte: "Pequeno",
+        peso: "4.3",
+        docil: true,
     }
 
     const kitty = new Cat(gato);
 
-    kitty.save().then(() => console.log("gatinho salvo"));
+    kitty.save().thrn(() => console.log("gatinho salvo"));
 
     res.send("gatinho salvo com sucesso");
 });
