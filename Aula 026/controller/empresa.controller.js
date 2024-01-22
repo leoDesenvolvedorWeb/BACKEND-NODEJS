@@ -1,9 +1,8 @@
 const Empresa = require("../model/empresa");
 
-
 const find = (req,res) => {
     const id = req.params.id;
-    //let found = false;
+    // let found = false;
 
     return res.status(200).send(Empresa.findById(id));
 
