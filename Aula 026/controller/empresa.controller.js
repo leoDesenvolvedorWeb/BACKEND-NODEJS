@@ -1,10 +1,10 @@
 const Empresa = require("../model/empresa");
 
-const find = (req,res) => {
+const find = async (req,res) => {
     const id = req.params.id;
     // let found = false;
 
-    return res.status(200).send(Empresa.findById(id));
+    return res.status(200).send(await Empresa.findById(id));
 
     // if(!found){
     //     res.status(404).send({message:"Não foi encontrado"});
@@ -12,11 +12,11 @@ const find = (req,res) => {
     
 }
 
-const findAllEmpresas = (req,res) => {
-    return res.status(200).send(Empresa.find());
+const findAllEmpresas = async (req,res) => {
+    return res.status(200).send(await Empresa.find());
 }
 
-const createEmpresa = (req,res) => {
+const createEmpresa = async (req,res) => {
     const empresa = req.body;
 
     if(Object.keys(empresa).length === 0){
@@ -34,18 +34,13 @@ const createEmpresa = (req,res) => {
     return res.status(201).send(Empresa.create(empresa));
 }
 
-const updateEmpresa = (req, res) =>{
+const updateEmpresa = async (req, res) =>{
     const id = req.params.id;
     const empresa = req.body;
-    let found = false;
+    // let found = false;
 
     if(Object.keys(empresa).length === 0){
         return res.status(400).send({message: "O corpo da menssagem estar vazio"});
-    }
-
-
-    if(!empresa.id){
-        return res.status(400).send({message: "O campo 'id' não foi encontrado!"});
     }
 
     if(!empresa.nome){
@@ -56,35 +51,22 @@ const updateEmpresa = (req, res) =>{
         return res.status(400).send({message: "O campo 'numFuncionarios' não foi encontrado!"});
     }
 
-    empresas.map( function(valor, index){
-        if(valor.id == id){
-            found = true;
-            empresas[index] = empresa;
-            return res.send(empresas[index]);
-        }
-    });
+    return res.status(200).send(await Empresa.findByIdAndUpdate(id,empresa, {returnDocument: "after"}));
 
-    if(!found){
-        res.status(404).send({message:"Não foi encontrado"});
-    }
+    // if(!found){
+    //     res.status(404).send({message:"Não foi encontrado"});
+    // }
 }
 
-const deleteEmpresa = (req, res) =>{
+const deleteEmpresa = async (req, res) =>{
     const id = req.params.id;
-    let found = false;
+    //let found = false;
 
+    return res.status(200).send(await Empresa.findByIdAndDelete(id));
 
-    empresas.map( function(valor, index){
-        if(valor.id == id){
-            found = true;
-            empresas.splice(index,1);
-            return res.send(valor);
-        }
-    });
-
-    if(!found){
-        res.status(404).send({message:"Não foi encontrado"});
-    }
+    // if(!found){
+    //     res.status(404).send({message:"Não foi encontrado"});
+    // }
 }
 
 module.exports = {
