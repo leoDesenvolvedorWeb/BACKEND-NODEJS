@@ -2,6 +2,7 @@ const Empresa = require("../model/empresa");
 const mongoose = require("mongoose");
 
 const find = async (req,res) => {
+    //  try{ 
     const id = mongoose.Types.ObjectId(req.params.id);
     // let found = false;
 
@@ -11,7 +12,11 @@ const find = async (req,res) => {
     //     res.status(404).send({message:"Não foi encontrado"});
     // }
     
+    // }catch(err){
+    //     return res.status(500).send("erro");
+    // }
 }
+
 
 const findAllEmpresas = async (req,res) => {
     return res.status(200).send(await Empresa.find());
