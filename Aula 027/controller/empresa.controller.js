@@ -2,19 +2,24 @@ const Empresa = require("../model/empresa");
 const mongoose = require("mongoose");
 
 const find = async (req,res) => {
-    //  try{ 
-    const id = mongoose.Types.ObjectId(req.params.id);
-    // let found = false;
+    try{
+        const id = mongoose.Types.ObjectId(req.params.id)
+        let found = false;
 
-    return res.status(200).send(await Empresa.findById(id));
+        const empresa = await Empresa.findById(id)
+
+        console.log(empresa)
+        return res.status(200).send(await Empresa.findById(id));
 
     // if(!found){
     //     res.status(404).send({message:"Não foi encontrado"});
     // }
     
-    // }catch(err){
-    //     return res.status(500).send("erro");
-    // }
+    }catch(err){
+        console.log(`erro: ${err}`);
+        return res.status(500).send("erro no servidor, tente novamente mais tarde");
+    }
+    
 }
 
 
