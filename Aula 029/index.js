@@ -32,7 +32,7 @@ app.post("/login", async (req, res) =>{
         console.log(`erro: ${err}`);
     }
     
-});
+}); 
 
 app.listen(port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`);
