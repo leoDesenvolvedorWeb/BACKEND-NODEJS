@@ -15,7 +15,6 @@ app.get("/", (req,res) =>{
 });
 
 app.post("/login", async (req, res) =>{
-
     try{
         const { email, senha } = req.body;
         const user = await authService.loginService(email);
@@ -39,9 +38,9 @@ app.post("/login", async (req, res) =>{
 });
 
 app.post("/validar", async (req,res) =>{
-    const {email, token} = req.body;
+   const {email, token} = req.body;
 
-    const user = await authService.loginService(email);
+   const user = await authService.loginService(email);
 
     if(!user){
         return res.status(400).send({menssage: "Usuario nao encontrado, tente novamente"});
@@ -49,7 +48,7 @@ app.post("/validar", async (req,res) =>{
 
     if(token != user.token){
         return res.status(400).send({ menssage: "token incorreto ou expirado, tente novamente"});
-    }
+    } 
 
     user.token = "";
     await authService.updateToken(user);
