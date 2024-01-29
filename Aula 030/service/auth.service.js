@@ -2,4 +2,11 @@ const Usuario = require("../model/usuario");
 
 const loginService = (email) => Usuario.findOne({ email });
 
-module.exports = { loginService };
+const createUsuario = (usuario) => {
+    return Usuario.create(usuario);
+}
+
+module.exports = {
+    loginService ,
+    createUsuario
+}
