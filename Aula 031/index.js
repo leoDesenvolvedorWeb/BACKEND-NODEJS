@@ -1,11 +1,14 @@
 const express = require("express");
-const connectToDatabase = require("./database/database")
+const connectToDatabase = require("./database/database");
 const authService = require("./service/auth.service");
+const jwt = require("jsonwebtoken");
+
 const app = express();
 
 connectToDatabase();
 
 const port = 3000;
+const segredo = "erfotoretratO2e34"
 
 app.use(express.json());
 
@@ -15,7 +18,6 @@ app.get("/", (req,res) =>{
 });
 
 app.post("/login", async (req, res) =>{
-
     try{
         const { email, senha } = req.body;
         const user = await authService.loginService(email);
@@ -27,21 +29,47 @@ app.post("/login", async (req, res) =>{
         if(senha != user.senha){
             return res.status(400).send({ message: "Senha invalida"});
         }
-        user.token = token();
-        await authService.updateToken(user);
-        console.log(user);
 
-        res.status(200).send(user);
+        const token = authService.generateToken(user,segredo);
+        res.status(200).send({
+        user,
+        token
+        });
     }catch(err){
         console.log(`erro: ${err}`);
     }
     
 });
 
-app.post("/validar", async (req,res) =>{
-    const {email, token} = req.body;
+app.get("/teste-token" , (req,res) =>{
+    const authHeader = req.headers.authorization;
 
-    const user = await authService.loginService(email);
+    if(!authHeader){
+        return res.status(401).send({ menssage: "O token nao foi informado!"});
+    }
+
+    const parts = authHeader.split(" ");
+
+    if(parts.length !== 2){
+        return res.status(401).send({ message: "token invalido!"});
+    }
+
+    const [schema, token] = parts;
+
+    if(!/^Bearer$/i.test(schema)){
+        return res.status(401).send({ menssage: "token malformatado!"});
+    }
+
+    jwt.verify(token, segredo, async (err, decoded) =>{
+        console.log(decoded.id);
+        res.send(decoded);
+    });
+})
+
+app.post("/validar", async (req,res) =>{
+   const {email, token} = req.body;
+
+   const user = await authService.loginService(email);
 
     if(!user){
         return res.status(400).send({menssage: "Usuario nao encontrado, tente novamente"});
@@ -49,7 +77,7 @@ app.post("/validar", async (req,res) =>{
 
     if(token != user.token){
         return res.status(400).send({ menssage: "token incorreto ou expirado, tente novamente"});
-    }
+    } 
 
     user.token = "";
     await authService.updateToken(user);
