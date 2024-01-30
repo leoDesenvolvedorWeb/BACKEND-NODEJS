@@ -17,10 +17,6 @@ app.get("/", (req,res) =>{
     res.send("hello world"); 
 });
 
-app.get("/mongo", (req,res)=>{
-    mongoose.connect('mongodb://localhost:27017/usuarios2');
-});
-
 app.post("/login", async (req, res) =>{
     try{
         const { email, senha } = req.body;
