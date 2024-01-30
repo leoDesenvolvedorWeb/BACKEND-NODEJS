@@ -60,8 +60,12 @@ app.get("/teste-token" , (req,res) =>{
         return res.status(401).send({ menssage: "token malformatado!"});
     }
 
-    jwt.verify(token, segredo, async (err, decoded) =>{
-        console.log(decoded.id);
+    jwt.verify(token, segredo, (err, decoded) =>{
+        if(err){
+            console.log(`erro: ${err}`);
+            return res.status(500).send({ menssage:`erro interno, tente novamente`});
+        }
+        console.log(decoded);
         res.send(decoded);
     });
 })
